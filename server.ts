@@ -23,6 +23,17 @@ app.get("/menu", (req, res) => {
     });
 });
 
+app.get("/about", (req, res) => {
+  res.json({ 
+    industry: "Gaming",
+    revenue: "2026 (forecast): Across mobile, PC and console, the market is projected to reach $213.9 billion, with the November release of Grand Theft Auto VI a major driver.",
+    funfact: "Games have been shown to improve cognitive skills, problem-solving abilities, and even social connections among players.",
+    });
+});
+
+app.get("/compare", (req, res) => {
+  res.send("When sending plain text, the response is sent with no overhead. When sending JSON, the response is sent with a content-type of application/json, particularly useful for processing structured data (arrays, objects), but this adds some overhead.");
+});
 //Start the server and listen on the specified port
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);

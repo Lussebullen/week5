@@ -18,7 +18,7 @@ app.get("/menu", (req, res) => {
   res.json({ 
     menu_1: {strategy: ["Civilization VI", "Stellaris", "Eternal Darkness"]},
     menu_2: {simulations: ["Call of Duty", "Assassin's Creed", "Grand Theft Auto"]},
-    menu_3: {action: {"RPG": ["The Witcher 3", "Final Fantasy VII", "Skyrim", "Dragon Age"]}},
+    menu_3: {action: ["The Witcher 3", "Final Fantasy VII", "Skyrim", "Dragon Age"]},
     lastVisited: new Date().toISOString().split("T")[0], // Get the date part of the ISO string
     });
 });

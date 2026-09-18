@@ -50,7 +50,7 @@ app.put("/party/:id", (req, res): void => {
   const partyId: number = parseInt(req.params.id);
   const party = parties.find((party) => party.id === partyId);
   if (!party) {
-    res.status(404).json({ message: "party not found" });
+    res.status(404).json({ message: "No party was found with id number:" + " " + partyId });
     return;
   }
   party.name = req.body.name || party.name;

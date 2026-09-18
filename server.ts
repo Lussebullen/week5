@@ -4,36 +4,67 @@ import express from "express";
 const app = express();
 const PORT = 3000;
 
-// When someone visits the root URL, send them a friendly message
-app.get("/", (req, res) => {
-  res.send("Welcome to my game hub! Visit /menu to see the games route.");
-});
-
-//Middleware to parse JSON bodies
 app.use(express.json());
 
-//Second route to handle timestamps
-//Note that routes like these must be defined before the server starts listening, otherwise they won't be reachable.
-app.get("/menu", (req, res) => {
-  res.json({ 
-    menu_1: {strategy: ["Civilization VI", "Stellaris", "Eternal Darkness"]},
-    menu_2: {simulations: ["Call of Duty", "Assassin's Creed", "Grand Theft Auto"]},
-    menu_3: {action: ["The Witcher 3", "Final Fantasy VII", "Skyrim", "Dragon Age"]},
-    lastVisited: new Date().toISOString().split("T")[0], // Get the date part of the ISO string
-    });
+type Party = {
+  id: number;
+  name: string;
+  leader: string;
+  seats: number;
+};
+
+type BookParams = {
+  id: string;
+};
+
+//Swedish political parties data
+let parties: Party[] = [
+  { id: 1, name: "Sociademokraterna", leader: "Magdalena Andersson", seats: 99 },
+  { id: 2, name: "Moderaterna", leader: "Ulf Kristersson", seats: 70 },
+  { id: 3, name: "Sverigedemokraterna", leader: "Jimmie Åkesson", seats: 62 },
+  { id: 4, name: "Vänsterpartiet", leader: "Nooshi Dadgostar ", seats: 30 },
+  { id: 5, name: "Centerpartiet", leader: "Elisabeth Thand Ringqvist ", seats: 25 },
+  /* 
+  { id: 6, name: "Kristdemokraterna", leader: "Ebba Bush Thor", seats: 22 }
+  { id: 7, name: "Miljöpartiet", leader: "Amanda Lind", seats: 22 }
+  { id: 6, name: "Liberalerna", leader: "Simona Mohamsson", seats: 24 }
+   */
+];
+
+app.get("/parties", (req, res): void => {
+  res.json(parties);
 });
 
-app.get("/about", (req, res) => {
-  res.json({ 
-    industry: "Gaming",
-    revenue: "2026 (forecast): Across mobile, PC and console, the market is projected to reach $213.9 billion, with the November release of Grand Theft Auto VI a major driver.",
-    funfact: "Games have been shown to improve cognitive skills, problem-solving abilities, and even social connections among players.",
-    });
+app.post("/addnew", (req, res) => {
+  const newParty: Party = {
+    id: parties.length + 1,
+    name: req.body.name,
+    leader: req.body.leader,
+    seats: req.body.seats
+  };
+  parties.push(newParty);
+  res.json({ message: "The party was added successfully", party: newParty });
 });
 
-app.get("/compare", (req, res) => {
-  res.send("When sending plain text, the response is sent with no overhead. When sending JSON, the response is sent with a content-type of application/json, particularly useful for processing structured data (arrays, objects), but this adds some overhead.");
+app.put("/party/:id", (req, res): void => {
+  const partyId: number = parseInt(req.params.id);
+  const party = parties.find((party) => party.id === partyId);
+  if (!party) {
+    res.status(404).json({ message: "party not found" });
+    return;
+  }
+  party.name = req.body.name || party.name;
+  party.leader = req.body.leader || party.leader;
+  party.seats = req.body.seats || party.seats;
+  res.json({ message: "Party updated successfully", party });
 });
+
+app.delete("/party/:id", (req, res): void => {
+  const partyId: number = parseInt(req.params.id);
+  parties = parties.filter((party) => party.id !== partyId);
+  res.json({ message: "Party deleted successfully" });
+});
+
 //Start the server and listen on the specified port
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);

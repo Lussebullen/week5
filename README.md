@@ -13,7 +13,7 @@ API documentation (by task number)
 ![Task-4](/images/task4.png)
 
 Path: "/parties/:id", Method: Put, Returns: an error mesasage when the party was not found
-![Task-4b](/images/task5.png)
+![Task-4b](/images/task4b.png)
 
 5. Path: "/parties/:id", Method: Delete, Returns: a mesasage that confirms that the party was deleted
 ![Task-5](/images/task5.png)

@@ -12,7 +12,7 @@ API documentation (by task number)
 4. Path: "/parties/:id", Method: Put, Returns: a mesasage that confirms that the party was updated successfully
 ![Task-4](/images/task4.png)
 
-4. Path: "/parties/:id", Method: Put, Returns: an error mesasage when the party was not found
+Path: "/parties/:id", Method: Put, Returns: an error mesasage when the party was not found
 ![Task-4b](/images/task5.png)
 
 5. Path: "/parties/:id", Method: Delete, Returns: a mesasage that confirms that the party was deleted

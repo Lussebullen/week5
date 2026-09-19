@@ -17,3 +17,9 @@ Path: "/parties/:id", Method: Put, Returns: an error mesasage when the party was
 
 5. Path: "/parties/:id", Method: Delete, Returns: a mesasage that confirms that the party was deleted
 ![Task-5](/images/task5.png)
+
+6. Path: "/parties", Method: Post, Returns: an error mesasage if the party data is incomplete (missing leader/party name/seats)
+![Task-6](/images/task6.png)
+
+Path: "/parties", Method: Post, Returns: a mesasage that confirms that a new party has been added to the list of existing parties (ensuring that functionality is correct when required data is there)
+![Task-6b](/images/task6b.png)

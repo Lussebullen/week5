@@ -36,6 +36,10 @@ app.get("/parties", (req, res): void => {
 });
 
 app.post("/parties", (req, res) => {
+  if (!req.body.name || !req.body.leader) {
+    res.status(400).json({ message: "One or more required fields are missing: name or leader or both" });
+    return;
+  }
   const newParty: Party = {
     id: parties.length + 1,
     name: req.body.name,

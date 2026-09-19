@@ -35,7 +35,7 @@ app.get("/parties", (req, res): void => {
   res.json(parties);
 });
 
-app.post("/addnew", (req, res) => {
+app.post("/parties", (req, res) => {
   const newParty: Party = {
     id: parties.length + 1,
     name: req.body.name,
@@ -46,7 +46,7 @@ app.post("/addnew", (req, res) => {
   res.json({ message: "The party was added successfully", party: newParty });
 });
 
-app.put("/party/:id", (req, res): void => {
+app.put("/parties/:id", (req, res): void => {
   const partyId: number = parseInt(req.params.id);
   const party = parties.find((party) => party.id === partyId);
   if (!party) {
@@ -59,7 +59,7 @@ app.put("/party/:id", (req, res): void => {
   res.json({ message: "Party updated successfully", party });
 });
 
-app.delete("/party/:id", (req, res): void => {
+app.delete("/parties/:id", (req, res): void => {
   const partyId: number = parseInt(req.params.id);
   parties = parties.filter((party) => party.id !== partyId);
   res.json({ message: "Party deleted successfully" });
